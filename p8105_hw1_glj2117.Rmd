@@ -1,5 +1,5 @@
 ---
-title: "Simple document"
+title: "P8105 Hw 1 glj2117"
 output: 
   html_document:
   toc: true
@@ -10,51 +10,35 @@ output:
 library(tidyverse)
 ```
 
-I'm an R Markdown document! 
+# Problem 1
 
-# Section 1
+**Penguins dataset summary.**
 
-Here's a **code chunk** that samples from 
-a _normal distribution_:
 
 ```{r}
-samp = rnorm(100)
-length(samp)
+data("penguins", package = "palmerpenguins")
+view(penguins)
+
 ```
+The variables of note included in this dataset are species, island of origin, bill and flipper length, bill depth, body mass, and sex. The dataset is `r nrow(penguins)` rows long and `r ncol(penguins)` variables wide. The mean flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)` mm. 
 
 # Section 2
 
-I can take the mean of the sample, too!
-The mean is `r mean(samp)`.
+
 
 # Section 3
 
 This is going to make a plot! First I generate a dataframe, then use `ggplot` to make a scatterplot.
 
 ```{r chunk_scatterplot}
-plot_df =
-  tibble(
-    x = rnorm(n = 1000),
-    y = 1 + 2 * x + rnorm(n = 1000)
-  )
 
-
-ggplot(plot_df, aes(x = x, y = y)) + geom_point()
 ```
 
 ```{r chunk_histogram}
-ggplot(plot_df, aes(x = x)) + geom_histogram()
+
 ```
 
 ```{r chunk_learning assessment}
-la_df = 
-  tibble(
-      norm = rnorm(n = 500, mean = 1),
-      logical = norm > 0,
-    abs_norm = abs(norm)
-  )
-
-ggplot(la_df, aes(x = abs_norm)) + geom_histogram()
   
 
 ```
