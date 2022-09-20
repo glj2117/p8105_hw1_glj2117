@@ -30,13 +30,21 @@ ggsave("flipper_vs_bill_length.pdf")
 
 ```
 # Problem 2
+This sample data data frame is comprised of:
 
+a random sample of size 10 from a standard Normal distribution
+a logical vector indicating whether elements of the sample are greater than 0
+a character vector of length 10
+a factor vector of length 10, with 3 different factor “levels” ("high", "med", "low")
 
+```{r}
 
-
-
-```{r chunk_scatterplot}
-
+problem2_df = tibble(
+  var_norm = rnorm(10),
+  var_logical = var_norm > 0,
+  var_characater = c("12 feet", "5 feet", "3 feet", "4 feet", "11 feet", "8 feet", "7 feet", "2 feet", "9 feet", "15 feet"),
+  var_factor = factor(c("high", "med", "low", "low", "high", "med", "med", "low", "high", "high"))
+)
 ```
 
 ```{r chunk_histogram}
