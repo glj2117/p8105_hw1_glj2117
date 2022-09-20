@@ -22,13 +22,18 @@ view(penguins)
 ```
 The variables of note included in this dataset are species, island of origin, bill and flipper length, bill depth, body mass, and sex. The dataset is `r nrow(penguins)` rows long and `r ncol(penguins)` variables wide. The mean flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)` mm. 
 
-# Section 2
+```{r}
+
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
+
+ggsave("flipper_vs_bill_length.pdf")
+
+```
+# Problem 2
 
 
 
-# Section 3
 
-This is going to make a plot! First I generate a dataframe, then use `ggplot` to make a scatterplot.
 
 ```{r chunk_scatterplot}
 
