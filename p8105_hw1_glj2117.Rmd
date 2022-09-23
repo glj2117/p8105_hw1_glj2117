@@ -21,7 +21,7 @@ head(penguins)
 
 ```
 The variables of note included in this dataset are species, island of origin, bill and flipper length, bill depth, body mass, and sex. The dataset is `r nrow(penguins)` rows long and `r ncol(penguins)` variables wide. 
-The mean flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)` mm. The maximum bill length is `r max(pensguins$bill_length_mm)` and the minimum is `r min(penguins$bill_length_mm)`. The maximum body mass is `r max(penguins$body_mass_g)` and the mean body mass is `r mean(penguins$body_mass_g)`.
+The mean flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)` mm. The maximum bill length is `r max(penguins$bill_length_mm)` and the minimum is `r min(penguins$bill_length_mm)`. The maximum body mass is `r max(penguins$body_mass_g)` and the mean body mass is `r mean(penguins$body_mass_g)`.
 
 ```{r}
 
