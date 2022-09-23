@@ -1,7 +1,7 @@
 ---
 title: "P8105 Hw 1 glj2117"
 output: 
-  html_document:
+  github_document:
   toc: true
 
 ---
@@ -43,17 +43,31 @@ a factor vector of length 10, with 3 different factor “levels” ("high", "med
 problem2_df = tibble(
   var_norm = rnorm(10),
   var_logical = var_norm > 0,
-  var_characater = c("12 feet", "5 feet", "3 feet", "4 feet", "11 feet", "8 feet", "7 feet", "2 feet", "9 feet", "15 feet"),
+  var_character = c("12 feet", "5 feet", "3 feet", "4 feet", "11 feet", "8 feet", "7 feet", "2 feet", "9 feet", "15 feet"),
   var_factor = factor(c("high", "med", "low", "low", "high", "med", "med", "low", "high", "high"))
 )
 ```
+Attempt to take the mean of each variable in the dataset.
+```{r}
 
-```{r chunk_histogram}
+mean(problem2_df$var_norm)
+mean(problem2_df$var_logical)
+# mean(problem2_df$var_factor)
+# mean(problem2_df$var_character) 
 
 ```
+We cannot take the mean of `var_character` because "Argument is not numeric or logical: returning NA." This makes sense because the character variables are coded as characters and contain both numbers and letters, it would logically be impossible to take the mean of letters. The same thing happens with the factor variable. 
 
-```{r chunk_learning assessment}
-  
+Although the logical variable appears to also be words, R is still able to take the mean without error. This is because the only two options for logical vectors (TRUE and FALSE) are coded as 1 and 0, respectively. In this case, R added up the sum of those 0s and 1s, and divided by the total (10). There were 8 TRUES, so the mean computed with this function is 0.8.
 
 ```
+Converting variables from one type to another...
+```
+```{r echo = TRUE, results = 'hide'}
 
+as.numeric(problem2_df$var_logical)
+as.numeric(problem2_df$var_character)
+as.numeric(problem2_df$var_factor)
+
+```
+When the logical variable is changed to a numeric, the TRUE and FALSE show up as 0 and 1, as described above. This explains numerically why the mean of this variable was 0.8. When the character variable is changed to a numeric, R does not know what to do with the combination or text, and codes each entry as NA, which is impossible to take the mean of. When the factor variable is changed to a numeric, R assigns a number to each factor "level." Since in this case there were 3 levels (high, med, low) each entry got either a 1, 2, or 3. This would now make it theoretically possible to take a mean, but the output would not be very meaningful. 
