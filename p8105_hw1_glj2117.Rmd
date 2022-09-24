@@ -8,6 +8,7 @@ output:
 
 ```{r, echo = FALSE, message = FALSE}
 library(tidyverse)
+library(dplyr)
 ```
 
 # Problem 1
@@ -20,8 +21,11 @@ data("penguins", package = "palmerpenguins")
 head(penguins)
 
 ```
-The variables of note included in this dataset are species, island of origin, bill and flipper length, bill depth, body mass, and sex. The dataset is `r nrow(penguins)` rows long and `r ncol(penguins)` variables wide. 
-The mean flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)` mm. The maximum bill length is `r max(penguins$bill_length_mm)` and the minimum is `r min(penguins$bill_length_mm)`. The maximum body mass is `r max(penguins$body_mass_g)` and the mean body mass is `r mean(penguins$body_mass_g)`.
+The variables of note included in this dataset are species, island of origin, bill and flipper length, bill depth, body mass, sex, and year. The dataset is `r nrow(penguins)` rows long and `r ncol(penguins)` variables wide. 
+
+The mean flipper length is `r penguins %>% pull(flipper_length_mm) %>% mean(na.rm = TRUE)` mm. With the maximum flipper length being `r penguins %>% pull(flipper_length_mm) %>% max(na.rm = TRUE)`mm and the minimum length being `r penguins%>% pull(flipper_length_mm) %>% min(na.rm = TRUE)`mm.
+
+The maximum body mass is `r penguins %>% pull(body_mass_g) %>% max(na.rm = TRUE)` g and the mean body mass is `r penguins %>% pull(body_mass_g) %>% mean(na.rm = TRUE)`.
 
 ```{r}
 
@@ -49,11 +53,11 @@ problem2_df = tibble(
 ```
 Attempt to take the mean of each variable in the dataset.
 ```{r}
+problem2_df %>% pull(var_norm) %>% mean()
+problem2_df %>% pull(var_logical) %>% mean()
 
-mean(problem2_df$var_norm)
-mean(problem2_df$var_logical)
-# mean(problem2_df$var_factor)
-# mean(problem2_df$var_character) 
+# problem2_df %>% pull(var_factor) %>% mean()
+# problem2_df %>% pull(var_character) %>% mean() 
 
 ```
 We cannot take the mean of `var_character` because "Argument is not numeric or logical: returning NA." This makes sense because the character variables are coded as characters and contain both numbers and letters, it would logically be impossible to take the mean of letters. The same thing happens with the factor variable. 
@@ -65,9 +69,12 @@ Converting variables from one type to another...
 ```
 ```{r echo = TRUE, results = 'hide'}
 
-as.numeric(problem2_df$var_logical)
-as.numeric(problem2_df$var_character)
-as.numeric(problem2_df$var_factor)
+problem2_df %>% pull(var_logical) %>% as.numeric()
+
+problem2_df %>% pull(var_character) %>% as.numeric()
+
+problem2_df %>% pull(var_factor) %>% as.numeric()
+
 
 ```
 When the logical variable is changed to a numeric, the TRUE and FALSE show up as 0 and 1, as described above. This explains numerically why the mean of this variable was 0.8. When the character variable is changed to a numeric, R does not know what to do with the combination or text, and codes each entry as NA, which is impossible to take the mean of. When the factor variable is changed to a numeric, R assigns a number to each factor "level." Since in this case there were 3 levels (high, med, low) each entry got either a 1, 2, or 3. This would now make it theoretically possible to take a mean, but the output would not be very meaningful. 
